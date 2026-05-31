@@ -1,5 +1,5 @@
 """
-ai_engine.py — оценка вакансий и генерация писем через Azure OpenAI
+ai_engine.py - score jobs and generate outreach text with Azure OpenAI
 """
 
 import json
@@ -55,8 +55,8 @@ def _create_text_completion(model: str, prompt: str, max_completion_tokens: int)
 
 def evaluate_job(title: str, description: str) -> dict:
     """
-    Оценивает вакансию от 0 до 10.
-    Возвращает: {"score": 8, "reason": "...", "apply": True}
+    Score a job from 0 to 10.
+    Returns: {"score": 8, "reason": "...", "apply": True}
     """
     prompt = f"""
 You are evaluating if a job posting matches a candidate profile.
@@ -96,8 +96,8 @@ Scoring rules:
 
 def generate_proposal(title: str, description: str) -> dict:
     """
-    Генерирует персонализированный proposal.
-    Возвращает: {"subject": "...", "body": "..."}
+    Generate a personalized proposal.
+    Returns: {"subject": "...", "body": "..."}
     """
     prompt = f"""
 Write a professional job application email for this posting.

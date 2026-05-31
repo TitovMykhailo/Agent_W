@@ -1,5 +1,5 @@
 """
-telegram_notify.py — уведомления в Telegram
+telegram_notify.py - Telegram notifications
 """
 
 import html
@@ -9,12 +9,12 @@ from config import CONFIG
 
 
 def send(message: str):
-    """Отправляет сообщение в Telegram"""
+    """Send a message to Telegram."""
     token   = CONFIG.get("TELEGRAM_BOT_TOKEN", "")
     chat_id = CONFIG.get("TELEGRAM_CHAT_ID", "")
 
     if not token or not chat_id:
-        return  # Telegram не настроен — пропускаем
+        return  # Telegram is not configured, so skip quietly.
 
     try:
         url = f"https://api.telegram.org/bot{token}/sendMessage"
@@ -28,7 +28,7 @@ def send(message: str):
 
 
 def report(scanned: int, suggested: int, skipped: int, replies: int):
-    """Отправляет итоговый отчёт"""
+    """Send a summary report."""
     send(
         f"🤖 <b>Job Hunter Report</b>\n"
         f"━━━━━━━━━━━━━━━\n"
@@ -40,7 +40,7 @@ def report(scanned: int, suggested: int, skipped: int, replies: int):
 
 
 def new_reply(from_email: str, subject: str):
-    """Уведомление о новом ответе"""
+    """Send a new-reply notification."""
     send(
         f"📨 <b>New Reply!</b>\n"
         f"From: {from_email}\n"
@@ -62,7 +62,7 @@ def job_suggestion(
     reason: str,
     message: str,
 ):
-    """Отправляет в Telegram вакансию, по которой стоит написать вручную"""
+    """Send a Telegram suggestion for a job worth contacting manually."""
     safe_reason = html.escape(reason or "")
     safe_message = html.escape(message or "")
     safe_title = html.escape(title or "")
@@ -72,7 +72,7 @@ def job_suggestion(
     safe_url = html.escape(url or "")
 
     send(
-        f"🎯 <b>Стоит написать</b>\n"
+        f"🎯 <b>Worth contacting</b>\n"
         f"Source: {safe_source}\n"
         f"Title: {safe_title}\n"
         f"Score: {score}/10\n"

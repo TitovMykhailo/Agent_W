@@ -1,5 +1,5 @@
 """
-sheets.py — запись результатов в Google Sheets
+sheets.py - write results to Google Sheets
 """
 
 import datetime
@@ -54,7 +54,7 @@ def _open_spreadsheet() -> Optional[gspread.Spreadsheet]:
 
 
 def _ensure_headers(sheet: gspread.Worksheet):
-    # Проверяем только первую строку, а не скачиваем весь лист.
+    # Only check the first row instead of downloading the whole worksheet.
     if not sheet.row_values(1):
         sheet.append_row(HEADERS)
         sheet.format("A1:J1", {"textFormat": {"bold": True}})
@@ -108,7 +108,7 @@ def _refresh_sheet(sheet: gspread.Worksheet) -> Optional[gspread.Worksheet]:
 
 
 def log_job(sheet: Optional[gspread.Worksheet], data: dict) -> Optional[gspread.Worksheet]:
-    """Записывает одну вакансию в таблицу"""
+    """Write one job row to the worksheet."""
     if sheet is None:
         return None
 
@@ -130,7 +130,7 @@ def log_job(sheet: Optional[gspread.Worksheet], data: dict) -> Optional[gspread.
 
 
 def mark_reply(sheet: Optional[gspread.Worksheet], from_email: str) -> Optional[gspread.Worksheet]:
-    """Помечает строку как 'Reply: Yes' если нашли ответ"""
+    """Mark a row as replied when a matching response is found."""
     if sheet is None:
         return None
 

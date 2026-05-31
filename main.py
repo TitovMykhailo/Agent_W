@@ -1,10 +1,10 @@
 """
-main.py — главный запуск Job Hunter Agent
+main.py - main entry point for Job Hunter Agent
 
-Запуск:
+Run:
     python main.py
 
-Автозапуск каждые 6 часов (Linux/Mac):
+Auto-run every 6 hours (Linux/Mac):
     crontab -e
     0 */6 * * * cd /path/to/job_hunter && python main.py >> logs.txt 2>&1
 """
@@ -21,7 +21,7 @@ from sheets import get_sheets, log_job
 SEEN_FILE = "seen_jobs.json"
 
 
-# ── Дедупликация ──────────────────────────────
+# ── De-duplication ────────────────────────────
 def load_seen() -> set:
     if not os.path.exists(SEEN_FILE):
         return set()
@@ -51,7 +51,7 @@ def save_seen(seen: set):
         json.dump(sorted(seen), f, indent=2, ensure_ascii=False)
 
 
-# ── Главный цикл ──────────────────────────────
+# ── Main loop ─────────────────────────────────
 def run():
     print("\n" + "═" * 50)
     print(f"🤖 Job Hunter Agent — {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
@@ -60,7 +60,7 @@ def run():
     qualified_sheet, all_sheet = get_sheets()
     seen = load_seen()
 
-    # 1. Собрать вакансии
+    # 1. Collect jobs
     all_jobs = get_all_jobs()
     new_jobs = [j for j in all_jobs if (j["url"] or j["title"]) not in seen]
     print(f"   New (unseen): {len(new_jobs)}")
@@ -68,7 +68,7 @@ def run():
     qualified = 0
     skipped = 0
 
-    # 2. Обработать каждую вакансию
+    # 2. Process each job
     for job in new_jobs:
         job_id = job["url"] or job["title"]
         seen.add(job_id)
@@ -91,7 +91,7 @@ def run():
             })
             continue
 
-        # Оценить через AI
+        # Score with AI
         result = evaluate_job(title, desc)
         score  = result.get("score", 0)
         reason = result.get("reason", "")
@@ -122,10 +122,10 @@ def run():
 
     save_seen(seen)
 
-    # 3. Проверить ответы
+    # 3. Reply checking is currently disabled
     replies = []
 
-    # 4. Итоговый отчёт
+    # 4. Final summary
     total = len(new_jobs)
     print(f"\n{'═'*50}")
     print(f"✅ Done! Scanned: {total} | Qualified: {qualified} | Skipped: {skipped} | Replies: {len(replies)}")

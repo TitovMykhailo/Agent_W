@@ -1,5 +1,5 @@
 """
-gmail.py — отправка писем и проверка ответов через Gmail
+gmail.py - send email and check replies through Gmail
 """
 
 import smtplib
@@ -12,14 +12,14 @@ from config import CONFIG
 
 def _gmail_credentials() -> tuple[str, str]:
     address = CONFIG.get("GMAIL_ADDRESS", "").strip()
-    # Gmail показывает App Password группами по 4 символа, но для SMTP/IMAP
-    # нужен непрерывный 16-символьный пароль.
+    # Gmail displays app passwords in groups of 4 characters, but SMTP/IMAP
+    # requires one continuous 16-character password.
     app_password = "".join(CONFIG.get("GMAIL_APP_PASSWORD", "").split())
     return address, app_password
 
 
 def send_email(to_address: str, subject: str, body: str) -> bool:
-    """Отправляет письмо через Gmail SMTP"""
+    """Send an email through Gmail SMTP."""
     gmail_address, app_password = _gmail_credentials()
     try:
         msg = MIMEMultipart()
@@ -46,7 +46,7 @@ def send_email(to_address: str, subject: str, body: str) -> bool:
 
 
 def check_replies() -> list:
-    """Проверяет входящие — возвращает непрочитанные письма"""
+    """Check the inbox and return unread messages."""
     replies = []
     gmail_address, app_password = _gmail_credentials()
     mail = None

@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────
-# config.py — безопасный шаблон конфигурации
-# Реальные секреты держи в config_local.py
+# config.py - safe configuration template
+# Keep real secrets in config_local.py
 # ─────────────────────────────────────────────
 
 BASE_CONFIG = {
@@ -11,7 +11,7 @@ BASE_CONFIG = {
     "AZURE_DEPLOYMENT_MINI": "gpt-5-mini",
     "AZURE_DEPLOYMENT_MAIN": "gpt-5-mini",
 
-    # ── Gmail агента ──────────────────────────
+    # ── Agent Gmail account ───────────────────
     "GMAIL_ADDRESS": "",
     "GMAIL_APP_PASSWORD": "",
 
@@ -19,11 +19,11 @@ BASE_CONFIG = {
     "GOOGLE_CREDENTIALS_FILE": "google_credentials.json",
     "SPREADSHEET_NAME": "Job Hunter",
 
-    # ── Telegram уведомления (опционально) ────
+    # ── Telegram notifications (optional) ─────
     "TELEGRAM_BOT_TOKEN": "",
     "TELEGRAM_CHAT_ID": "",
 
-    # ── Твои данные ───────────────────────────
+    # ── Your details ──────────────────────────
     "YOUR_NAME": "Your Name",
     "YOUR_LOCATION": "Bratislava, Slovakia",
     "YOUR_SKILLS": "Python, AI automation, integrations",
@@ -39,7 +39,7 @@ except ImportError:
 CONFIG = BASE_CONFIG.copy()
 CONFIG.update(CONFIG_OVERRIDES)
 
-# ── Профиль кандидата для GPT ─────────────────
+# ── Candidate profile for GPT ────────────────
 CANDIDATE_PROFILE = f"""
 Name: {CONFIG["YOUR_NAME"]}
 Location: {CONFIG["YOUR_LOCATION"]} (remote globally, on-site Slovakia/Ukraine)
@@ -56,7 +56,7 @@ Looking for: Remote freelance, part-time AI/automation work worldwide,
              full-time jobs in Slovakia
 """
 
-# ── Ключевые слова для фильтрации вакансий ───
+# ── Keywords used for job filtering ──────────
 KEYWORDS = [
     "python", "ai", "automation", "n8n", "zapier", "make.com", "chatgpt",
     "openai", "claude", "anthropic", "workflow", "freelance", "remote",
@@ -67,7 +67,7 @@ KEYWORDS = [
     "konzultant", "data scientist", "java", ".net", "angular"
 ]
 
-# ── Источники Reddit ──────────────────────────
+# ── Reddit sources ───────────────────────────
 REDDIT_FEEDS = [
     "https://www.reddit.com/r/forhire/new.json?limit=25",
     "https://www.reddit.com/r/slavelabour/new.json?limit=25",
@@ -75,7 +75,7 @@ REDDIT_FEEDS = [
     "https://www.reddit.com/r/remotework/new.json?limit=15",
 ]
 
-# ── RSS/HTML фиды работы в Словакии ───────────
+# ── Slovakia job RSS / HTML sources ──────────
 JOBS_SK_RSS = "https://www.jobs.sk/rss/it"
 PROFESIA_SK_RSS = "https://www.profesia.sk/rss/it"
 PROFESIA_SK_IT_URL = "https://www.profesia.sk/en/work/information-technology/?count_days=7&sort_by=validity_from"
@@ -91,5 +91,5 @@ LINKEDIN_SEARCH_TERMS = [
     "api integration",
 ]
 
-# ── Порог для отбора (0-10) ───────────────────
+# ── Qualification threshold (0-10) ───────────
 APPLY_THRESHOLD = 7

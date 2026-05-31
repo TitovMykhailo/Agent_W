@@ -1,5 +1,5 @@
 """
-parsers.py — парсинг вакансий с разных источников
+parsers.py - parse jobs from multiple sources
 """
 
 import html
