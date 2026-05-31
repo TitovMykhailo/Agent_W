@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+
+config_local.py
+google_credentials.json
+seen_jobs.json
+
+Cv Titov Mykhailo improved.docx
+
+.env
+.env.*
